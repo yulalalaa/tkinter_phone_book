@@ -1,10 +1,14 @@
 from tkinter import *
-from phones  import * #import excisting contacts
+import tkinter as tk
+
+phonebook = {'Andrew Parson':8806336, \
+'Emily Everett':6784346, 'Peter Power':7658344, \
+'Lewis Lame':1122345}
 
 class AddressBook:
     def __init__(self):      
-        window = Tk() # Create a window
-        window.title("Phone Book") # Set title
+        window = Tk() #create a window
+        window.title("Phone Book") #set title
 
         self.nameVar = StringVar()
         self.phoneVar = StringVar()
@@ -24,13 +28,6 @@ class AddressBook:
         Entry(frame2, textvariable = self.phoneVar, 
             width = 40).grid(row = 1, column = 2)
 
-        frame3 = Frame(window)
-        frame3.pack()
-        Label(frame3, text = "City", width = 5).grid(row = 1, 
-            column = 1, sticky = W)
-        Entry(frame3, 
-            textvariable = self.cityVar).grid(row = 1, column = 2)
-
         frame4 = Frame(window)
         frame4.pack()
         btAdd = Button(frame4, text = "Add", 
@@ -39,16 +36,34 @@ class AddressBook:
             command = self.processDelete).grid(row = 1, column = 2)
         btSeeAll = Button(frame4, text = "See All", 
             command = self.processSeeAll).grid(row = 1, column = 3)
+        btExit = Button(frame4, text = "Exit", 
+            command = self.processExit).grid(row = 1, column = 4)
 
-        window.mainloop() # Create an event loop
+        window.mainloop() #create an event loop
 
     def processAdd(self):
-        pass
+    	pass
 
     def processDelete(self):
         pass
 
     def processSeeAll(self):
-        pass
+        window = Tk()
+        window.title("Contacts")
+        window.geometry("300x200") 
+        frame5 = Frame(window)       
+        frame5.pack()
+        listbox = Listbox(window)
+        listbox.pack ()
+        scrollbar = Scrollbar(window)
+        scrollbar.pack(side = RIGHT, fill = BOTH) 
+        listbox.config(width=25, xscrollcommand = scrollbar.set) 
+        scrollbar.config(command = listbox.yview)
+        for key in phonebook:
+        	listbox.insert(END, '{}: {}'.format(key, phonebook [key]))
+       
+    def processExit(self):
+    	quit()
 
 AddressBook()
+
